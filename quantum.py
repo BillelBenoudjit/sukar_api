@@ -49,8 +49,8 @@ def get_outcome(input):
         result = simulator.run(circ, shots=1).result()
         counts = (result.get_counts(circ))
         print(f'{d}: {sorted(counts)}')
-        return(counts)
-        qc.draw('mpl')
+        # print(sorted(counts))
+        return(sorted(counts))
         
 qc = QuantumCircuit(5,3)
 

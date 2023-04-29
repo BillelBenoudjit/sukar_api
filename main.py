@@ -2,6 +2,8 @@ from fastapi import FastAPI
 
 from quantum import get_outcome
 
+from typing import List
+
 app = FastAPI()
 
 # uvicorn main:app --reload
@@ -12,5 +14,6 @@ async def root():
 
 @app.post("/simulate")
 async def simulate(input: str):
+    result: List[str] = []
     result = get_outcome(input)
     return result
