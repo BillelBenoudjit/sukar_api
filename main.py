@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from quantum import get_outcome
 
@@ -6,14 +7,27 @@ from typing import List
 
 app = FastAPI()
 
+origins = [
+    "*"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 # uvicorn main:app --reload
 
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
 
-@app.post("/simulate")
-async def simulate(input: str):
+@app.get("/simulate")
+async def simulate(input):
     result: List[str] = []
     result = get_outcome(input)
     return result
