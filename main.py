@@ -2,8 +2,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from quantum import get_outcome
+from local_quantum import get_local_outcome
 
 from typing import List
+
+# uvicorn main:app --reload
 
 app = FastAPI()
 
@@ -30,4 +33,10 @@ async def root():
 async def simulate(input):
     result: List[str] = []
     result = get_outcome(input)
+    return result
+
+@app.get("/local_simulate")
+async def simulate():
+    result: List[str] = []
+    result = get_local_outcome()
     return result
